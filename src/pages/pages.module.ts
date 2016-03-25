@@ -1,7 +1,7 @@
 import { Module, Requires } from 'decorators';
 
 @Module('app.pages')
-@Requires('dependencies')
+@Requires('dependencies', 'app.services', 'app.components')
 export class PagesModule {
   private static __module: ng.IModule;
 

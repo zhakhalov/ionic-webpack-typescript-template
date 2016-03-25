@@ -1,9 +1,9 @@
 /// <reference path="../_references.d.ts" />
 
 import { App, Requires } from 'decorators';
-import { pagesModule } from './pages/pages';
-import { componentsModule } from './components/components';
 import { servicesModule } from './services/services';
+import { componentsModule } from './components/components';
+import { pagesModule } from './pages/pages';
 
 require('./scss/main.scss');
 

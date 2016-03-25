@@ -1,0 +1,1 @@
+export const servicesModule = angular.module('app.services', ['dependencies']);

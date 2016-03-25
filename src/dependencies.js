@@ -1,12 +1,12 @@
-require('angular');
-require('angular-ui-router');
-require('angular-sanitize');
-require('angular-animate');
-require('angular-resource');
+import 'angular';
+import 'angular-ui-router';
+import 'angular-sanitize';
+import 'angular-animate';
+import 'angular-resource';
 
-require('ionic');
+import 'ionic';
 
-require('lodash');
+import 'lodash';
 
 angular.module('dependencies',[
   'ionic',

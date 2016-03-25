@@ -8,7 +8,7 @@ const BowerWebpackPlugin = require("bower-webpack-plugin");
 
 module.exports = {
   entry: {
-    app: './src/app.ts',
+    app: './src/app.js',
     deps: './src/dependencies.js'
   },
   output: {
@@ -17,21 +17,18 @@ module.exports = {
     chunkFilename: '[id].bundle.js'
   },
   resolve: {
-    extensions: ['', '.ts', '.js'],
+    extensions: ['', '.js'],
     root: [
       path.join(__dirname, 'src'),
       path.join(__dirname, 'bower_components'),
       path.join(__dirname, 'node_modules')
     ],
     modulesDirectories: ['bower_components', 'node_modules'],
-    alias: {
-      decorators: 'ng-core-decorators/dist/commonjs/decorators',
-    }
   },
   devtool: '#inline-source-map',
   module: {
     loaders: [
-      { test: /\.ts$/, loader: 'ts' },
+      { test: /\.js$/, exclude: [/bower_components/, /node_modules/], loader: 'ng-annotate!babel' },
       { test: /\.html$/, loader: 'raw' },
       { test: /\.css$/, loader: 'style!css' },
       { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css!sass') },

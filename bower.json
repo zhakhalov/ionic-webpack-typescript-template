@@ -6,7 +6,7 @@
   "dependencies": {
     "lodash": "~4.6.1",
     "angular-resource": "~1.5.2",
-    "ng-core-decorators": "~0.0.4",
-    "ionic": "~1.2.4"
+    "ionic": "~1.2.4",
+    "ng-core-decorators": "~0.0.6"
   }
 }

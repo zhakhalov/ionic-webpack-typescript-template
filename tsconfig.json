@@ -2,8 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
-    "inlineSourceMap": true,
-    "inlineSources": true,
+    "sourceMap": true,
     "experimentalDecorators": true,
     "allowJs": true
   },

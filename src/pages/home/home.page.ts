@@ -13,18 +13,16 @@ class PagesRouteConfig {
       .state('home', {
         url: '/home',
         template: template,
-        controller: HomeController,
-        controllerAs: '$ctrl'
+        // controller: HomeController,
+        // controllerAs: '$ctrl'
       })
   }
 }
 
-@Controller(PagesModule.module, 'HomeController')
 export default class HomeController {
   constructor(
     @Inject('$state') private $state: ng.ui.IStateService
   ) {
-
+    console.log('home page ctor');
   }
 }
-

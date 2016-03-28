@@ -6,9 +6,9 @@ require('./scss/main.scss');
 
 angular.module('app', [
   'dependencies',
-  pages.name,
+  services.name,
   components.name,
-  services.name
+  pages.name,
 ]);
 
-angular.bootstrap(document, 'app');
+angular.element(document).ready(() => angular.bootstrap(document, 'app'));

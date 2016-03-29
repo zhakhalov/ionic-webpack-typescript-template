@@ -35,10 +35,10 @@ module.exports = {
       { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css!sass') },
 
       // ----------- fonts
-      { test: /\.woff($|\?)/, loader: 'url-loader?prefix=font/&limit=5000&mimetype=application/font-woff' },
-      { test: /\.woff2($|\?)/, loader: 'url-loader?prefix=font/&limit=5000&mimetype=application/font-woff' },
-      { test: /\.ttf($|\?)/, loader: 'file-loader?prefix=font/' },
-      { test: /\.eot($|\?)/, loader: 'file-loader?prefix=font/' },
+      { test: /\.woff($|\?)/, loader: 'url-loader?name=fonts/[hash].[ext]&limit=5000&mimetype=application/font-woff' },
+      { test: /\.woff2($|\?)/, loader: 'url-loader?name=fonts/[hash].[ext]&limit=5000&mimetype=application/font-woff' },
+      { test: /\.ttf($|\?)/, loader: 'file-loader?name=fonts/[hash].[ext]' },
+      { test: /\.eot($|\?)/, loader: 'file-loader?name=fonts/[hash].[ext]' },
 
       // ----------- images
       { test: /\.svg($|\?)/, loader: 'file-loader?prefix=font/&name=img/[hash].[ext]' },

@@ -1,7 +1,7 @@
 import { Component, Inject } from 'decorators';
 import { ComponentsModule } from '../components.module';
 
-import { IHomeService, homeService } from '../../services/home.service';
+import { IHomeService, homeService } from 'services/home.service';
 
 const template: string = require('./home.html');
 

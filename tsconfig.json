@@ -4,7 +4,9 @@
     "module": "commonjs",
     "sourceMap": true,
     "experimentalDecorators": true,
-    "allowJs": true
+    "allowJs": true,
+    "rootDir": "src",
+    "moduleResolution": "classic"
   },
   "filesGlob": [
     "./src/**/*.ts"

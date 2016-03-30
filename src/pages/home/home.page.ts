@@ -13,8 +13,8 @@ class PagesRouteConfig {
       .state('home', {
         url: '/home',
         template: template,
-        // controller: HomeController,
-        // controllerAs: '$ctrl'
+        controller: HomeController,
+        controllerAs: '$ctrl'
       })
   }
 }

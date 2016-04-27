@@ -3,7 +3,7 @@
 #### Install global dependencies
 
 ```
-$ npm install cordova ionic webpack bower -g
+$ npm install cordova ionic@beta webpack -g
 ```
 
 #### Install local dependencies

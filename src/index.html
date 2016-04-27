@@ -1,18 +1,34 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
-    <link rel="stylesheet" href="app.bundle.css" />
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
 
-    <!-- your app's js -->
-    <script src="deps.bundle.js"></script>
-    <script src="app.bundle.js"></script>
-  </head>
-  <body>
-    <ion-nav-view></ion-nav-view>
-  </body>
+  <title>Ionic</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+
+  <link ios-href="ios.bundle.css" rel="stylesheet">
+  <link md-href="md.bundle.css" rel="stylesheet">
+  <link wp-href="wp.bundle.css" rel="stylesheet">
+
+  <link href="app.bundle.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- this Ionic's root component and where the app will load -->
+  <ion-app>
+    Loading...
+  </ion-app>
+
+  <!-- cordova.js required for cordova apps -->
+  <script src="cordova.js"></script>
+
+  <!-- third party dependencies bundle -->
+  <script src="deps.bundle.js"></script>
+
+  <!-- Your application bundle -->
+  <script src="app.bundle.js"></script>
+</body>
 </html>

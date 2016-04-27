@@ -2,9 +2,10 @@
 # http://git-scm.com/docs/gitignore
 
 node_modules/
-bower_components/
-typings/
-node_modules/
-platforms/
-plugins/
-www/
+/www
+/platforms
+/plugins
+/typings
+*.swp
+.DS_Store
+Thumbs.db

@@ -4,13 +4,18 @@ const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const BowerWebpackPlugin = require("bower-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+
+const PRODUCTION = process.env.NODE_ENV === 'production';
+const DEBUG = process.env.NODE_ENV !== 'production';
 
 module.exports = {
   entry: {
-    app: './src/app.ts',
-    deps: './src/dependencies.js'
+    app: './src/app.ts',              // custom application
+    deps: './src/entries/dependencies.ts',    // third-party dependencies
+    md: './src/entries/app.md.js',      // separate styles for material design app. (ionic feature)
+    ios: './src/entries/app.ios.js',    // separate styles for iOS app. (ionic feature)
+    wp: './src/entries/app.wp.js',      // separate styles for Windows Phone app. (ionic feature)
   },
   output: {
     path: path.join(__dirname, 'www'),
@@ -20,16 +25,18 @@ module.exports = {
   resolve: {
     extensions: ['', '.ts', '.js'],
     root: [
-      path.join(__dirname, 'src'),
-      path.join(__dirname, 'bower_components'),
+      path.join(__dirname, 'app'),
       path.join(__dirname, 'node_modules')
     ],
-    modulesDirectories: ['bower_components', 'node_modules'],
-    alias: {
-      decorators: 'ng-core-decorators/dist/commonjs/decorators',
-    }
+    modulesDirectories: ['node_modules'],
   },
-  devtool: '#inline-source-map',
+  devtool: DEBUG ? '#inline-source-map' : null,
+  sassLoader: {
+    includePaths: [
+      path.resolve(__dirname, "./node_modules/ionic-angular"),
+      path.resolve(__dirname, "./node_modules/ionicons/dist/scss"),
+    ]
+  },
   module: {
     loaders: [
       { test: /\.ts$/, loader: 'ts' },
@@ -38,31 +45,26 @@ module.exports = {
       { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css!sass') },
 
       // ----------- fonts
-      { test: /\.woff($|\?)/, loader: 'url-loader?name=fonts/[hash].[ext]&limit=5000&mimetype=application/font-woff' },
-      { test: /\.woff2($|\?)/, loader: 'url-loader?name=fonts/[hash].[ext]&limit=5000&mimetype=application/font-woff' },
-      { test: /\.ttf($|\?)/, loader: 'file-loader?name=fonts/[hash].[ext]' },
-      { test: /\.eot($|\?)/, loader: 'file-loader?name=fonts/[hash].[ext]' },
+      { test: /\.woff($|\?)/, loader: 'url-loader?name=fonts/[name]-[hash].[ext]&limit=5000&mimetype=application/font-woff' },
+      { test: /\.woff2($|\?)/, loader: 'url-loader?name=fonts/[name]-[hash].[ext]&limit=5000&mimetype=application/font-woff' },
+      { test: /\.ttf($|\?)/, loader: 'file-loader?name=fonts/[name]-[hash].[ext]' },
+      { test: /\.eot($|\?)/, loader: 'file-loader?name=fonts/[name]-[hash].[ext]' },
 
       // ----------- images
-      { test: /\.svg($|\?)/, loader: 'file-loader?prefix=font/&name=img/[hash].[ext]' },
-      { test: /\.png($|\?)/, loader: 'file-loader?prefix=font/&name=img/[hash].[ext]' },
+      { test: /\.svg($|\?)/, loader: 'file-loader?prefix=font/&name=img/[name]-[hash].[ext]' },
+      { test: /\.png($|\?)/, loader: 'file-loader?prefix=font/&name=img/[name]-[hash].[ext]' },
     ]
   },
   plugins: [
     new webpack.DefinePlugin({
-      DEBUG: process.env.NODE_ENV !== 'production',
-      PRODUCTION: process.env.NODE_ENV === 'production'
+      DEBUG: DEBUG,
+      PRODUCTION: PRODUCTION,
+      BUILD_TIME: new Date().toString()
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'deps',
       minChunks: Infinity
     }),
-    new BowerWebpackPlugin({
-      excludes: [/\*/, /\.css$/]
-    }),
-    new webpack.ResolverPlugin(
-      new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
-    ),
     new ExtractTextPlugin('[name].bundle.css', {
       allChunks: true
     }),
@@ -72,5 +74,11 @@ module.exports = {
     new CleanWebpackPlugin([
       'www'
     ])
-  ],
+  ].concat(PRODUCTION ? [
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    })
+  ] : []),
 }

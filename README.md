@@ -3,40 +3,32 @@
 #### Install global dependencies
 
 ```
-$ npm install cordova ionic@beta webpack -g
+$ npm install cordova ionic@beta tsd -g
 ```
 
 #### Install local dependencies
 
-Install npm dependencies
-
 ```
-$ npm install
+$ npm install && tsd install
 ```
 
-Install bower dependencies
-
-```
-$ bower install
-```
-
-Restore ionic project
-
-```
-$ ionic state reset
-```
+## How to add third-party dependency?
+For proper adding of third-party dependency you should `require('<deps-name>')` in `src/entries/dependencies.ts`
 
 ## How to work with?
 
-
-Start webpack with watcher flag
-
-```
-$ webpack --watch
-```
-
-Serve ionic
-
-```
-$ ionic serve
-```
++ Start Electron UI for debug
+  ```
+  $ npm run ui
+  ```
++ Start watch and rebuild loop
+  ```
+  $ npm run watch
+  ```
++ Build to devices
+  ```
+  $ ionic build android
+  ```
+  ```
+  $ ionic build ios --device
+  ```

@@ -1,32 +1,27 @@
-/// <reference path="./typings/typings.d.ts" />
+/// <reference path="typings/typings.d.ts" />
+import { Inject, Component, ViewChild } from '@angular/core';
+import { ionicBootstrap, Nav, ionicProviders } from 'ionic-angular';
 
-import { App, Platform } from 'ionic-angular';
-import { StatusBar } from 'ionic-native';
-import { TabsPage } from './pages/tabs/tabs.page';
-import { Inject } from 'angular2/core'
+// pages
+import { StartPage } from './pages/start/start.page';
 
 require('./theme/app.scss');
 
-/**
- * Entry point for your application.
- */
-
-@App({
-  template: `<ion-nav [root]="rootPage"></ion-nav>`,
-  config: {
-  },
+@Component({
+  template: require('./app.html'),
   providers: [
-
+  ],
+  directives: [
   ]
 })
-export class MyApp {
-  rootPage: any = TabsPage;
+export class App {
+  @ViewChild(Nav) private nav: Nav;
+  rootPage: any = StartPage;
 
   constructor(
-    @Inject(Platform) private platform: Platform
   ) {
-    platform.ready().then(() => {
-      StatusBar.styleDefault();
-    });
   }
+
 }
+
+ionicBootstrap(App);

@@ -1,5 +1,33 @@
-@import "app.variables"
+@import "app.variables";
+@import "scrollbar";
 
 // App Shared Sass
 // --------------------------------------------------
 // Shared Sass styles go in the app.variables.scss file
+
+scroll-content {
+  overflow-y: auto !important;
+}
+
+.toolbar[position=bottom] {
+  flex: inherit !important;
+}
+
+.button {
+  ion-spinner {
+    &:first-child {
+      margin-right: 5px;
+    }
+    &:last-child {
+      margin-left: 5px;
+    }
+  }
+}
+
+
+.button-default {
+
+  svg * {
+    stroke: #fff;
+  }
+}

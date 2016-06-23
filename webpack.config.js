@@ -1,5 +1,3 @@
-'use strict';
-
 const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -11,11 +9,11 @@ const DEBUG = process.env.NODE_ENV !== 'production';
 
 module.exports = {
   entry: {
-    app: './src/app.ts',              // custom application
-    deps: './src/entries/dependencies.ts',    // third-party dependencies
-    md: './src/entries/app.md.js',      // separate styles for material design app. (ionic feature)
-    ios: './src/entries/app.ios.js',    // separate styles for iOS app. (ionic feature)
-    wp: './src/entries/app.wp.js',      // separate styles for Windows Phone app. (ionic feature)
+    app: './src/app.ts',                   // custom application
+    deps: './src/entries/dependencies.ts', // third-party dependencies
+    md: './src/entries/app.md.js',         // separate styles for material design app. (ionic feature)
+    ios: './src/entries/app.ios.js',       // separate styles for iOS app. (ionic feature)
+    wp: './src/entries/app.wp.js',         // separate styles for Windows Phone app. (ionic feature)
   },
   output: {
     path: path.join(__dirname, 'www'),
@@ -25,7 +23,7 @@ module.exports = {
   resolve: {
     extensions: ['', '.ts', '.js'],
     root: [
-      path.join(__dirname, 'app'),
+      path.join(__dirname, 'src'),
       path.join(__dirname, 'node_modules')
     ],
     modulesDirectories: ['node_modules'],
@@ -34,7 +32,7 @@ module.exports = {
   sassLoader: {
     includePaths: [
       path.resolve(__dirname, "./node_modules/ionic-angular"),
-      path.resolve(__dirname, "./node_modules/ionicons/dist/scss"),
+      path.resolve(__dirname, "./node_modules/ionicons/dist/scss")
     ]
   },
   module: {
@@ -55,6 +53,9 @@ module.exports = {
       { test: /\.png($|\?)/, loader: 'file-loader?prefix=font/&name=img/[name]-[hash].[ext]' },
     ]
   },
+  ts: {
+    configFileName: './tsconfig.json'
+  },
   plugins: [
     new webpack.DefinePlugin({
       DEBUG: DEBUG,
@@ -69,16 +70,22 @@ module.exports = {
       allChunks: true
     }),
     new CopyWebpackPlugin([
-      { from: 'src/index.html', to: 'index.html' },
+      { from: './src/index.html', to: 'index.html' },
     ]),
     new CleanWebpackPlugin([
-      'www'
+      path.join(__dirname, 'www')
     ])
   ].concat(PRODUCTION ? [
+    // additional pluginds for produnction environment
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
       }
     })
-  ] : []),
+  ] : []).concat(DEBUG ? [
+    // additional pluginds for debug target
+    new CopyWebpackPlugin([
+      { from: './src/main.js', to: 'main.js' },
+    ])
+  ] : [])
 }
